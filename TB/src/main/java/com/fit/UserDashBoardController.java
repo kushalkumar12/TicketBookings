@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.common.StaticBookingSeats;
+import com.model.Bookings;
 import com.service.DashBoardServiceManager;
 import com.work.ManagerFactory;
 
@@ -26,29 +28,45 @@ public class UserDashBoardController {
 		DashBoardServiceManager dashBoardServiceManager = null;
 		try {
 			dashBoardServiceManager = (DashBoardServiceManager) ManagerFactory.getManagerInstance("com.serviceImpl.DashBoardServiceManagerImpl");
+			String bookMode = request.getParameter("modeName");
 			
-			movieList = new ArrayList();
-			locationList = new ArrayList<String>();
-			theatreList = new ArrayList<String>();
-			
-			movieList = dashBoardServiceManager.getMovie();
-			String movieName = request.getParameter("movieName");
-			request.setAttribute("mvName", movieName);
-			if(null != movieName && !movieName.isEmpty()) {
-				locationList = dashBoardServiceManager.getLocation(movieName);
+			if(null == bookMode || "".equals(bookMode) || "BT".equals(bookMode)) {
+				movieList = new ArrayList();
+				locationList = new ArrayList<String>();
+				theatreList = new ArrayList<String>();
+				
+				movieList = dashBoardServiceManager.getMovie();
+				String movieName = request.getParameter("movieName");
+				request.setAttribute("mvName", movieName);
+				if(null != movieName && !movieName.isEmpty()) {
+					locationList = dashBoardServiceManager.getLocation(movieName);
+				}
+				
+				String locationName = request.getParameter("locationName");
+				request.setAttribute("locName", locationName);
+				if( null != locationName && !locationName.isEmpty()) {
+					theatreList = dashBoardServiceManager.getThreatre(locationName);
+				}
+				request.setAttribute("theName", request.getParameter("theatreName"));
+				
+				request.setAttribute("mvList", movieList);
+				request.setAttribute("locList", locationList);
+				request.setAttribute("theaList", theatreList);
+				String openSeats = request.getParameter("openSeats");
+				if("YES".equals(openSeats)) {
+					List <String[]> seatsList = new ArrayList();
+					seatsList = StaticBookingSeats.getSeats();
+					request.setAttribute("allSeats",seatsList);
+					request.setAttribute("enableSeats", true);
+				}
+				request.setAttribute("bookMode", true);
 			}
-			
-			String locationName = request.getParameter("locationName");
-			request.setAttribute("locName", locationName);
-			if( null != locationName && !locationName.isEmpty()) {
-				theatreList = dashBoardServiceManager.getThreatre(locationName);
+			if("SB".equals(bookMode)) {
+				List <Object> bookinglist = new ArrayList();
+				bookinglist = dashBoardServiceManager.getBookingList();
+				request.setAttribute("bookinglist", bookinglist);
+				request.setAttribute("bookMode", false);
 			}
-			request.setAttribute("theName", request.getParameter("theatreName"));
-			
-			request.setAttribute("mvList", movieList);
-			request.setAttribute("locList", locationList);
-			request.setAttribute("theaList", theatreList);
-
 			sendTo = "//pages/HomePage.jsp";
 			
 		}catch(Exception ex) {
@@ -58,4 +76,58 @@ public class UserDashBoardController {
 		System.out.println("changeAdminDashBoardView Controller END");
 		return sendTo;
 	}
+	
+	@RequestMapping("/saveShowDtls")
+	public String saveShowDtls(HttpServletResponse response, HttpServletRequest request)throws Exception{
+		String sendTo = null;
+		DashBoardServiceManager dashBoardServiceManager = null;
+		boolean saveflag = false;
+		List <String> movieList = null;
+		try {
+			dashBoardServiceManager = (DashBoardServiceManager) ManagerFactory.getManagerInstance("com.serviceImpl.DashBoardServiceManagerImpl");
+			String movieName = request.getParameter("movieName");
+			String locationName = request.getParameter("locationName");
+			String theatreName = request.getParameter("theatreName");
+			String seats = request.getParameter("seats");
+			String cost = request.getParameter("cost");
+			String bookingStatus = "Booked";
+			Bookings bookings = new Bookings();
+			if (movieName != null && !movieName.isEmpty() &&
+				    locationName != null && !locationName.isEmpty() &&
+				    theatreName != null && !theatreName.isEmpty() &&
+				    seats != null && !seats.isEmpty() &&
+				    cost != null && !cost.isEmpty() &&
+				    bookingStatus != null && !bookingStatus.isEmpty()) {
+				
+				bookings.setShowName(movieName);
+				bookings.setLocationName(locationName);
+				bookings.setTheatreName(theatreName);
+				bookings.setSeatNo(seats);
+				bookings.setTicketRate(Double.parseDouble(cost));
+				bookings.setStatus(bookingStatus);
+				bookings.setCreatedBy("admin");
+				bookings.setCreatedOn(new java.sql.Date(System.currentTimeMillis()));
+				bookings.setBookedDate(new java.sql.Date(System.currentTimeMillis()));
+				bookings.setModifiedBy("admin");
+				bookings.setModifiedOn(new java.sql.Date(System.currentTimeMillis()));
+				saveflag = dashBoardServiceManager.saveBookingDtls(bookings);
+			}
+			if(saveflag) {
+				movieList = new ArrayList();
+				movieList = dashBoardServiceManager.getMovie();
+				request.setAttribute("mvList", movieList);
+				request.setAttribute("success", saveflag);
+				request.setAttribute("bookMode", true);
+			}
+
+			sendTo = "//pages/HomePage.jsp";
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			System.err.println(" Failed ");
+		}
+		return sendTo;
+	}
+	
+	
 }

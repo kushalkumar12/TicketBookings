@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import com.dao.DashBoardDao;
+import com.model.Bookings;
 import com.model.Location;
 import com.model.Show;
 import com.model.Theatre;
@@ -170,6 +171,38 @@ public class DashBoardDaoImpl implements DashBoardDao{
 			throw ex;
 		}
 		return location;
+	}
+
+	@Override
+	public boolean saveBookings(Bookings bookings) throws Exception {
+		boolean saveFlag = false;
+		Transaction transaction = null;
+		try{
+			transaction = session.beginTransaction();
+	        session.save(bookings);
+	            transaction.commit();
+	            saveFlag = true;
+		}catch(Exception ex){
+			ex.printStackTrace();
+			throw ex;
+		}
+		return true;
+	}
+
+	@Override
+	public List<Object> getBookingList() throws Exception {
+		List<Object> bookingList = null;
+		Query query = null;
+		try{
+			bookingList = new ArrayList();
+			 String sqlmax = "SELECT BOOKING_ID,SHOW_NAME,THEATRE_NAME,LOCATION_NAME,STATUS,BOOKED_DATE,TICKET_RATE,SEAT_NO FROM BOOKINGS ORDER BY BOOKING_ID DESC";
+			 query = session.createSQLQuery(sqlmax);
+			 bookingList = query.list();
+		}catch(Exception ex){
+			ex.printStackTrace();
+			throw ex;
+		}
+		return bookingList;
 	}
 
 }

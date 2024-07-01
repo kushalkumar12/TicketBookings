@@ -17,33 +17,36 @@ public class Bookings {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "booking_id_seq")
 	@SequenceGenerator(name = "booking_id_seq", sequenceName = "booking_id_seq", allocationSize = 1)
     @Column(name = "BOOKING_ID")
-    private Long bookingId;
+	 private Long bookingId;
 
-    @Column(name = "SHOW_ID")
-    private Long showId;
+    @Column(name = "SHOW_NAME", length = 100)
+    private String showName;
 
-    @Column(name = "LOC_SEQ_ID")
-    private Long locSeqId;
+    @Column(name = "THEATRE_NAME", length = 100)
+    private String theatreName;
 
-    @Column(name = "STATUS")
+    @Column(name = "LOCATION_NAME", length = 100)
+    private String locationName;
+
+    @Column(name = "STATUS", length = 100)
     private String status;
 
     @Column(name = "BOOKED_DATE")
     private Date bookedDate;
 
-    @Column(name = "TICKET_PRISE")
-    private Double ticketPrice;
+    @Column(name = "TICKET_RATE", precision = 3, scale = 3)
+    private Double ticketRate;
 
-    @Column(name = "SEAT_NO")
+    @Column(name = "SEAT_NO", length = 4000)
     private String seatNo;
 
-    @Column(name = "CREATED_BY")
+    @Column(name = "CREATED_BY", length = 100)
     private String createdBy;
 
     @Column(name = "CREATED_ON")
     private Date createdOn;
 
-    @Column(name = "MODIFIED_BY")
+    @Column(name = "MODIFIED_BY", length = 100)
     private String modifiedBy;
 
     @Column(name = "MODIFIED_ON")
@@ -57,20 +60,28 @@ public class Bookings {
 		this.bookingId = bookingId;
 	}
 
-	public Long getShowId() {
-		return showId;
+	public String getShowName() {
+		return showName;
 	}
 
-	public void setShowId(Long showId) {
-		this.showId = showId;
+	public void setShowName(String showName) {
+		this.showName = showName;
 	}
 
-	public Long getLocSeqId() {
-		return locSeqId;
+	public String getTheatreName() {
+		return theatreName;
 	}
 
-	public void setLocSeqId(Long locSeqId) {
-		this.locSeqId = locSeqId;
+	public void setTheatreName(String theatreName) {
+		this.theatreName = theatreName;
+	}
+
+	public String getLocationName() {
+		return locationName;
+	}
+
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
 	}
 
 	public String getStatus() {
@@ -89,12 +100,12 @@ public class Bookings {
 		this.bookedDate = bookedDate;
 	}
 
-	public Double getTicketPrice() {
-		return ticketPrice;
+	public Double getTicketRate() {
+		return ticketRate;
 	}
 
-	public void setTicketPrice(Double ticketPrice) {
-		this.ticketPrice = ticketPrice;
+	public void setTicketRate(Double ticketRate) {
+		this.ticketRate = ticketRate;
 	}
 
 	public String getSeatNo() {
@@ -136,7 +147,5 @@ public class Bookings {
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
-
-    
     
 }

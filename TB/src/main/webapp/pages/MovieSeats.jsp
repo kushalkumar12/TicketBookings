@@ -110,7 +110,7 @@
 	
 	<table class="center1">
     <tr>
-        <td class="number-of-seats">Number of seats: <span id="seatCounts"></span></td>
+        <td class="number-of-seats">No of seats selected: <span id="seatCounts"></span></td>
         <td class="ticket-rate">Ticket Rate: 140</td>
     </tr>
     <tr>
@@ -119,6 +119,8 @@
     <tr>
    		<td colspan="2" class="total-amount">Seat Numbers: <span id="seatNumbers"></span></td> <!-- colspan to span across two columns -->
     </tr>
+<input type="hidden" id="totalAmt1" name="cost"/>
+<input type="hidden" id="seatNumbers1" name="seats"/>
 </table>
 
 </div>
@@ -147,6 +149,26 @@ function calculateRate() {
     document.getElementById("seatCounts").innerHTML = checkedCount;
     document.getElementById("totalAmt").innerHTML = checkedCount * eachSeat;
     document.getElementById("seatNumbers").innerHTML = seatNumber;
+    
+    document.getElementById("totalAmt1").value = checkedCount * eachSeat;
+    document.getElementById("seatNumbers1").value = seatNumber;
+}
+
+function validateSeatsAnd(){
+	var totAmt = document.getElementById("totalAmt1");
+	var selectSeats = document.getElementById("totalAmt1");
+	if (selectSeats.value === "" || selectSeats.value === "0") {
+        alert("Please select atleat one seat.");
+        selectSeats.focus();
+        return false;
+    }else if (totAmt.value === "" || selectSeats.value === "0") {
+        alert("Please select atleat one seats.");
+        totAmt.focus();
+        return false;
+    }else{
+    	return true;
+    }
+	
 }
 </script>
 </html>

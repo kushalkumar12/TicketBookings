@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 
 import com.dao.DashBoardDao;
 import com.dao.LoginDao;
+import com.model.Bookings;
 import com.model.Show;
 import com.service.DashBoardServiceManager;
 import com.work.DaoFactory;
@@ -201,5 +202,57 @@ public class DashBoardServiceManagerImpl implements DashBoardServiceManager{
 		return locList;
 	}
 
-	
+	@Override
+	public boolean saveBookingDtls(Bookings bookings) throws Exception {
+		Session session = null;
+		DashBoardDao dashBoardDao = null;
+		boolean saveFlag = false;
+		try{
+			System.out.println("Entered service layer...............Entered......................&&%%");
+			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+			System.out.println("Entered service layer..........session..............&&%%");
+			session = sessionFactory.openSession();
+			dashBoardDao = DaoFactory.getDashBoardDao(session);
+			saveFlag = dashBoardDao.saveBookings(bookings);
+			System.out.println("Entered service layer..............loginDao.............&&%%");
+			System.out.println("Entered service layer...............Count.............&&%%");
+
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			throw ex;
+		} finally {
+            if (session != null) {
+                session.close();
+            }
+		}
+		System.out.println("return from here .............****&*&*&");
+		return saveFlag;
+	}
+
+	@Override
+	public List<Object> getBookingList() throws Exception {
+		Session session = null;
+		DashBoardDao dashBoardDao = null;
+		List<Object> locList = null;
+		try{
+			System.out.println("Entered service layer...............Entered......................&&%%");
+			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+			System.out.println("Entered service layer..........session..............&&%%");
+			session = sessionFactory.openSession();
+			dashBoardDao = DaoFactory.getDashBoardDao(session);
+			locList = new ArrayList();
+			locList = dashBoardDao.getBookingList();
+			System.out.println("Entered service layer..............loginDao.............&&%%");
+			System.out.println("Entered service layer...............Count.............&&%%");
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			throw ex;
+		} finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+		System.out.println("return from here .............****&*&*&");
+		return locList;
+	}
 }

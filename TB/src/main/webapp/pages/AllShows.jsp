@@ -54,7 +54,7 @@ form textarea {
 <div class="container">
     <form method="POST" enctype="multipart/form-data"><span id="warning"></span><br>
         <label for="movieName">Movie:</label>
-        <select name="movieName" required onchange="enableBookings()">
+        <select name="movieName" id="movieId" required onchange="enableBookings()">
        	<option value="">Select One</option>
        	<c:forEach var="movie" items="${mvList}">
              <option value="<c:out value="${movie}"/>" <c:if test="${mvName eq movie}">selected</c:if> ><c:out value="${movie}"/></option>
@@ -62,7 +62,7 @@ form textarea {
         </select>
 
         <label for="description">Location:</label>
-        <select name="locationName" required onchange="enableBookings()">
+        <select name="locationName" id="locationId" required onchange="enableBookings()">
        	<option value="">Select One</option>
        	<c:forEach var="location" items="${locList}">
              <option value="<c:out value="${location}"/>" <c:if test="${locName eq location}">selected</c:if> ><c:out value="${location}"/></option>
@@ -70,7 +70,7 @@ form textarea {
         </select>
 
 		<label for="releaseDate">Theatre:</label>
-       	<select name ="theatreName" required>
+       	<select name ="theatreName" id="theatreId" required>
         	<option value="">Select One</option>
         	<c:forEach var="theatre" items="${theaList}">
              <option value="<c:out value="${theatre}"/>" <c:if test="${theName eq theatre}">selected</c:if> ><c:out value="${theatre}"/></option>
@@ -84,9 +84,38 @@ form textarea {
 </body>
 <script>
 function openSeats(){
-	document.getElementById("enableSeats").value = "YES";
-	document.form.action = "enableBooking.m";
-	document.form.submit();
+
+		var movie = document.getElementById("movieId");
+		var location = document.getElementById("locationId");
+		var theatre = document.getElementById("theatreId");
+		
+		if (viewSeatValidate()) {
+			document.getElementById("enableSeats").value = "YES";
+			document.form.action = "enableBooking.m";
+			document.form.submit();
+		}
+}
+
+function viewSeatValidate(){
+	var movie = document.getElementById("movieId");
+	var location = document.getElementById("locationId");
+	var theatre = document.getElementById("theatreId");
+	
+	if (movie.value === "") {
+        alert("Please select a movie.");
+        movie.focus();
+        return false;
+    }else if (location.value === "") {
+        alert("Please select a location.");
+        location.focus();
+        return false;
+    }else if (theatre.value === "") {
+        alert("Please select a theatre.");
+        theatre.focus();
+        return false;
+    }else{
+    	return true;
+	}
 }
 
 function enableBookings(){

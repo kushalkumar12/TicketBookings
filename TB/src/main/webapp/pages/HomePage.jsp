@@ -77,7 +77,7 @@ header, footer {
     border-radius: 0.5rem;
     padding: 1.5rem;
     margin-bottom: 2rem;
-    flex-basis: 70%;
+    flex-basis: 80%;
 }
 
 h2 {
@@ -218,12 +218,22 @@ h2{
 	overflow : auto;
 	border : 1ppx solid #000;
 }
+.green{
+	color:green;
+}
 </style>
 <script>
 	function changeMode(val){
-	document.getElementById("changeModes").value = val;
-	document.form.action = "enableBooking.m";
-	document.form.submit();
+		document.getElementById("changeModes").value = val;
+		document.form.action = "enableBooking.m";
+		document.form.submit();
+	}
+	
+	function confirmBooking(){
+		if(viewSeatValidate() && validateSeatsAnd()){
+			document.form.action = "saveShowDtls.m";
+			document.form.submit();
+		}
 	}
 </script>
 </head>
@@ -258,6 +268,7 @@ h2{
 	              </c:when>
 	              <c:otherwise>
 	              	Select Movie, Location, and Theatre, then click on 'View Seats'.
+	              	<c:if test="${success eq true}"><h2 class="green">Ticket Booked</h2></c:if>
 	              </c:otherwise>
 	              </c:choose>
 	            </div>

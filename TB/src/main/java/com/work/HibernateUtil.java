@@ -8,6 +8,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 
+import com.model.Bookings;
 import com.model.Location;
 import com.model.Show;
 import com.model.Theatre;
@@ -33,6 +34,7 @@ public class HibernateUtil {
 			configuration.addAnnotatedClass(Location.class);
 			configuration.addAnnotatedClass(Theatre.class);
 			configuration.addAnnotatedClass(Show.class);
+			configuration.addAnnotatedClass(Bookings.class);
 			StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 			sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 		}

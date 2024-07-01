@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,25 +54,17 @@
             <th>Location</th>
             <th>Status</th>
             <th>Show Time</th>
+            <th>Rate</th>
+            <th># Seats</th>
         </tr>
-        <tr>
-            <td>1</td>
-            <td><a class="showId"href="#">56222</a></td>
-            <td>Pulp Fiction</td>
-            <td>H2 Mall</td>
-            <td>Hyderabad</td>
-            <td>Booked</td>
-            <td>7/2/2024 13:23</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td><a class="showId" href="#">56322</a></td>
-            <td>Cars</td>
-            <td>H2 Mall</td>
-            <td>Hyderabad</td>
-            <td>Booked</td>
-            <td>6/2/2024 18:23</td>
-        </tr>
+        <c:forEach var="bookings" items="${bookinglist}" varStatus="status">
+			<tr>
+				<td><c:out value="${status.count}"/></td>
+			 	<c:forEach var="booking" items="${bookings}"><td><c:out value="${booking}"/></td></c:forEach>
+			</tr>
+		</c:forEach>
+        
+
     </table>
 </div>
 </body>
