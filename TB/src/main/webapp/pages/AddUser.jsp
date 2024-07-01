@@ -224,7 +224,7 @@ p {
 	<div class="grid">
 	<h1 class="holder">Get Your Show</h1>
 	<span id="warning"></span>
-		<form action="checkEntry.com" method="POST" class="form login" name="form">
+		<form action="" method="POST" class="form login" name="form">
 			<div class="form__field">
 				<label for="login__username">
 					<svg class="icon indicatorRed" ><use xlink:href="#icon-phone"></use></svg>

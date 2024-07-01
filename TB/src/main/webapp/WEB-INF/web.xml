@@ -24,7 +24,7 @@
   
   <servlet-mapping>
   	<servlet-name>makeTogether</servlet-name>
-  	<url-pattern>*.com</url-pattern>
+  	<url-pattern>*.m</url-pattern>
   </servlet-mapping>
   
   <!-- this is for servlet dispatcher to get request from view to controller -->

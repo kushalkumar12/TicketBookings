@@ -69,7 +69,7 @@ form textarea {
 </body>
 <script>
 	function addTheatre() {
-		document.form.action = "addTheatre.com";
+		document.form.action = "addTheatre.m";
 		document.form.submit();
 	}
 </script>

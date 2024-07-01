@@ -80,7 +80,7 @@ form textarea {
 </body>
 <script>
 function addMovie(){
-	document.form.action = "addMovie.com";
+	document.form.action = "addMovie.m";
 	document.form.submit();
 }
 </script>

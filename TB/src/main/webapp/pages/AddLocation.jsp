@@ -65,7 +65,7 @@ span{
 </body>
 <script>
 function submitlink(){
-	document.form.action = "addLocation.com";
+	document.form.action = "addLocation.m";
 	document.form.submit();
 }
 </script>

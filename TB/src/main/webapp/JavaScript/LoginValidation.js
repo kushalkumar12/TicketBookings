@@ -1,5 +1,5 @@
 function signUp() {
-	document.form.action = "signUp.com";
+	document.form.action = "signUp.m";
 	document.form.submit();
 }
 
@@ -15,7 +15,7 @@ function login() {
 	 }else if(null == password || "" == password){
 		document.getElementById("warning").innerHTML = "Please enter password";
 	 }else{
-		document.form.action = "loginToUser.com";
+		document.form.action = "loginToUser.m";
 		document.form.submit();
 	 }	
 }
@@ -26,7 +26,7 @@ function resetPass() {
 }
 
 function backToLogin() {
-	document.form.action = "checkEntry.com";
+	document.form.action = "checkEntry.m";
 	document.form.submit();
 }
 

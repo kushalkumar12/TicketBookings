@@ -63,13 +63,21 @@ header, footer {
     padding: 2rem;
 }
 
-section {
+.section1 {
     background-color: #fff;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
     padding: 1.5rem;
     margin-bottom: 2rem;
     flex-basis: 45%;
+}
+.section2 {
+    background-color: #fff;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    flex-basis: 70%;
 }
 
 h2 {
@@ -175,6 +183,8 @@ span{
 	background-color : #007bff;
 	padding : 5px 14px;
 	border-radius : 16px;
+	text-decoration: none;
+	color: yellow;
 }
 h2{
 	text-align : center;
@@ -202,7 +212,20 @@ h2{
 	overflow : auto;
 	border : 1ppx solid #000;
 }
+.fixedSize1{
+	width : 600px;
+	height : 450px;
+	overflow : auto;
+	border : 1ppx solid #000;
+}
 </style>
+<script>
+	function changeMode(val){
+	document.getElementById("changeModes").value = val;
+	document.form.action = "enableBooking.m";
+	document.form.submit();
+	}
+</script>
 </head>
 <body>
 <form method="POST" class="form login" name="form">
@@ -212,25 +235,48 @@ h2{
         	<c:out value="${sName}"/>&nbsp;
         	<span class="dp"><c:out value="${DP}"/></span></h5>
     </header>
+    <input type="hidden" id="changeModes" name="modeName">
      <div class="header1">
-        <h4 class="header2">Book Tickets</h4>&nbsp;<h4 class="header2">Show Bookings</h4>
+        <a class="header2" href="#" onclick="changeMode('BT')"><h4>Book Tickets</h4></a>
+        &nbsp;
+        <a class="header2" href="#" onclick="changeMode('SB')"><h4>Show Bookings</h4></a>
     </div>
-    <main class="main">
-        <section class="movies fixedSize">
-            <h2>Book Now</h2>
-            <div class="movie-list">
-               <jsp:include page="AllShows.jsp"/>
-            </div>
-        </section>
-        <section class="booking fixedSize">
-            <h2>Seats</h2>
-             <div class="movie-list">
-                <jsp:include page="MovieSeats.jsp"/>
-            </div>
-        </section>
-         <a href="#" class="submitlink" onclick="addMovie()">Confirm Booking</a>
-    </main>
-    
+    <c:choose>
+    	<c:when test="${bookMode eq true}">
+	    	<main class="main">
+	        <section class="movies fixedSize section1">
+	            <h2>Book Now</h2>
+	            <div class="movie-list">
+	               <jsp:include page="AllShows.jsp"/>
+	            </div>
+	        </section>
+	        <section class="booking fixedSize section1">
+	             <div class="">
+	             <c:choose>
+	             <c:when test="${enableSeats eq true}">
+	                <jsp:include page="MovieSeats.jsp"/>
+	              </c:when>
+	              <c:otherwise>
+	              	Select Movie, Location, and Theatre, then click on 'View Seats'.
+	              </c:otherwise>
+	              </c:choose>
+	            </div>
+	        </section>
+	         <a href="#" class="submitlink" onclick="confirmBooking()">Confirm Booking</a>
+	   	 </main>
+    	</c:when>
+    	<c:when test="${bookMode eq false}">
+    		<main class="main">
+	        <section class="movies fixedSize1 section2">
+	            <h2>Booked List</h2>
+	            <div class="">
+	               <jsp:include page="BookedList.jsp"/>
+	            </div>
+	        </section>
+			</main>
+    	</c:when>
+    </c:choose>
+
     <footer>
         <p>&copy; 2024 Book Your Show Dashboard</p>
     </footer>
@@ -238,7 +284,7 @@ h2{
     <c:if test="${enableBooking eq true}">
     	<script>
     		function enableBookings(){
-    			document.form.action = "enableBooking.com";
+    			document.form.action = "enableBooking.m";
     			document.form.submit();
     		}
     		enableBookings();

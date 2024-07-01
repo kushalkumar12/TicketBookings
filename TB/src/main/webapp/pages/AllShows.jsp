@@ -77,18 +77,20 @@ form textarea {
          </c:forEach>
         </select>
         <br><br>
+        <input type="hidden" id="enableSeats" name="openSeats">
         <a href="#" class="submitlink" onclick="openSeats()">View Seats</a>
     </form>
 </div>
 </body>
 <script>
 function openSeats(){
-	document.form.action = "addMovie.com";
+	document.getElementById("enableSeats").value = "YES";
+	document.form.action = "enableBooking.m";
 	document.form.submit();
 }
 
 function enableBookings(){
-	document.form.action = "enableBooking.com";
+	document.form.action = "enableBooking.m";
 	document.form.submit();
 }
 </script>
