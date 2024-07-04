@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CredentialConstants {
+	int ok = 0;
 	 public static final List<String> USR_NAME01 = new ArrayList<String>() {{
 	        add("Stay Out");
 	        add("Stay Away");
