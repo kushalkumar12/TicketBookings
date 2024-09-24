@@ -92,8 +92,14 @@
 			<input onchange="calculateRate()" 
 					value="<c:out value="${seat}"/>" 
 					type="checkbox" class="seat-checkbox" 
-					id="<c:out value="${seat}"/>" 
-					<c:if test="${seat eq 'A1' or seat eq 'B5'}">disabled</c:if>/>
+					id="<c:out value="${seat}"/>"
+					<c:set var="breakLoop" value="false" />
+					<c:forEach var="bseat" items="${bookedSeats}">
+						<c:if test="${seat eq bseat and !breakLoop}">
+						<c:set var="breakLoop" value="true" /></c:if>
+					</c:forEach>
+					<c:if test="${breakLoop}">disabled</c:if>
+					/>
 			<label class="seatLabel" for="<c:out value="${seat}"/>"><c:out value="${seat}"/></label>
 		</td>
 	</c:forEach>

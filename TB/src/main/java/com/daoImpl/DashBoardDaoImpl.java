@@ -205,4 +205,23 @@ public class DashBoardDaoImpl implements DashBoardDao{
 		return bookingList;
 	}
 
+	@Override
+	public List<String> getBookedSeats(String location, String theatre, String movie) {
+		List<String> bookedTickets = null;
+		Query query = null;
+		try{
+			bookedTickets = new ArrayList();
+			 String sqlmax = "SELECT SEAT_NO FROM BOOKINGS WHERE THEATRE_NAME =:theatre AND SHOW_NAME =:showName AND LOCATION_NAME =:location ";
+			 query = session.createSQLQuery(sqlmax);
+			 query.setString("location", location);
+			 query.setString("theatre", theatre);
+			 query.setString("showName", movie);
+			 bookedTickets = query.list();
+		}catch(Exception ex){
+			ex.printStackTrace();
+			throw ex;
+		}
+		return bookedTickets;
+	}
+
 }

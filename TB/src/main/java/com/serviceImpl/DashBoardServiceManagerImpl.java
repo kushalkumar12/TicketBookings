@@ -2,6 +2,7 @@ package com.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -254,5 +255,35 @@ public class DashBoardServiceManagerImpl implements DashBoardServiceManager{
         }
 		System.out.println("return from here .............****&*&*&");
 		return locList;
+	}
+
+	@Override
+	public String getBookedSeats(String location, String theatre, String movie) {
+		Session session = null;
+		DashBoardDao dashBoardDao = null;
+		List<String> bookedTicketsList = null;
+		String bookedTickets = null;
+		try{
+			System.out.println("Entered service layer...............Entered......................&&%%");
+			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+			System.out.println("Entered service layer..........session..............&&%%");
+			session = sessionFactory.openSession();
+			dashBoardDao = DaoFactory.getDashBoardDao(session);
+			bookedTicketsList = dashBoardDao.getBookedSeats(location,theatre,movie);
+			
+			bookedTickets = bookedTicketsList.stream().collect(Collectors.joining(", "));
+
+			System.out.println("Entered service layer..............loginDao.............&&%%");
+			System.out.println("Entered service layer...............Count.............&&%%");
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			throw ex;
+		} finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+		System.out.println("return from here .............****&*&*&");
+		return bookedTickets;
 	}
 }

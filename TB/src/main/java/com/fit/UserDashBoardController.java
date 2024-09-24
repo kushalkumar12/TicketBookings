@@ -50,12 +50,23 @@ public class UserDashBoardController {
 				}
 				request.setAttribute("theName", request.getParameter("theatreName"));
 				
+				String theatreName = request.getParameter("theatreName");
+				
 				request.setAttribute("mvList", movieList);
 				request.setAttribute("locList", locationList);
 				request.setAttribute("theaList", theatreList);
 				String openSeats = request.getParameter("openSeats");
 				if("YES".equals(openSeats)) {
 					List <String[]> seatsList = new ArrayList<>();
+					String seats = dashBoardServiceManager.getBookedSeats(locationName, theatreName, movieName);
+					
+					if(null != seats && !seats.isBlank() && !seats.isEmpty()) {
+						
+						String bookedSeats[] =  seats.split(", ");
+						System.out.println(bookedSeats.toString() + "These are the seats already been booked");
+						request.setAttribute("bookedSeats",bookedSeats);
+					}
+					
 					seatsList = StaticBookingSeats.getSeats();
 					request.setAttribute("allSeats",seatsList);
 					request.setAttribute("enableSeats", true);

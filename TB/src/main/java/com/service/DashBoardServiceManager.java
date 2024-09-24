@@ -18,4 +18,6 @@ public interface DashBoardServiceManager {
 	
 	public boolean saveBookingDtls(Bookings bookings) throws Exception;
 	public List<Object> getBookingList() throws Exception;
+	
+	public String getBookedSeats(String location, String theatre, String movie);
 }

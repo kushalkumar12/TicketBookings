@@ -17,4 +17,5 @@ public interface DashBoardDao {
 	
 	public boolean saveBookings(Bookings bookings) throws Exception;
 	public List<Object> getBookingList() throws Exception;
+	public List<String> getBookedSeats(String location, String theatre, String movie);
 }
