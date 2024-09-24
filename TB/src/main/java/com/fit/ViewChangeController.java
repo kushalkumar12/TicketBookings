@@ -20,8 +20,8 @@ public class ViewChangeController {
 
 		String sendTo = null;
 		System.out.println("changeAdminDashBoardView Controller START");
-		List <String> locations = new ArrayList();
-		List <String> theatres = new ArrayList();
+		List <String> locations = new ArrayList<>();
+		List <String> theatres = new ArrayList<>();
 		DashBoardServiceManager dashBoardServiceManager = null;
 		try {
 			

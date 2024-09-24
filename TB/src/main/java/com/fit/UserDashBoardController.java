@@ -31,7 +31,7 @@ public class UserDashBoardController {
 			String bookMode = request.getParameter("modeName");
 			
 			if(null == bookMode || "".equals(bookMode) || "BT".equals(bookMode)) {
-				movieList = new ArrayList();
+				movieList = new ArrayList<>();
 				locationList = new ArrayList<String>();
 				theatreList = new ArrayList<String>();
 				
@@ -54,7 +54,7 @@ public class UserDashBoardController {
 				request.setAttribute("theaList", theatreList);
 				String openSeats = request.getParameter("openSeats");
 				if("YES".equals(openSeats)) {
-					List <String[]> seatsList = new ArrayList();
+					List <String[]> seatsList = new ArrayList<>();
 					seatsList = StaticBookingSeats.getSeats();
 					request.setAttribute("allSeats",seatsList);
 					request.setAttribute("enableSeats", true);
@@ -62,7 +62,7 @@ public class UserDashBoardController {
 				request.setAttribute("bookMode", true);
 			}
 			if("SB".equals(bookMode)) {
-				List <Object> bookinglist = new ArrayList();
+				List <Object> bookinglist = new ArrayList<>();
 				bookinglist = dashBoardServiceManager.getBookingList();
 				request.setAttribute("bookinglist", bookinglist);
 				request.setAttribute("bookMode", false);
@@ -113,7 +113,7 @@ public class UserDashBoardController {
 				saveflag = dashBoardServiceManager.saveBookingDtls(bookings);
 			}
 			if(saveflag) {
-				movieList = new ArrayList();
+				movieList = new ArrayList<>();
 				movieList = dashBoardServiceManager.getMovie();
 				request.setAttribute("mvList", movieList);
 				request.setAttribute("success", saveflag);
