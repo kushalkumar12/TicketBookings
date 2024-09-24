@@ -20,6 +20,7 @@ public class ViewChangeController {
 
 		String sendTo = null;
 		System.out.println("changeAdminDashBoardView Controller START");
+		//Adding generics
 		List <String> locations = new ArrayList<>();
 		List <String> theatres = new ArrayList<>();
 		DashBoardServiceManager dashBoardServiceManager = null;

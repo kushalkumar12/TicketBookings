@@ -31,6 +31,7 @@ public class UserDashBoardController {
 			String bookMode = request.getParameter("modeName");
 			
 			if(null == bookMode || "".equals(bookMode) || "BT".equals(bookMode)) {
+				//Added Generics
 				movieList = new ArrayList<>();
 				locationList = new ArrayList<String>();
 				theatreList = new ArrayList<String>();
