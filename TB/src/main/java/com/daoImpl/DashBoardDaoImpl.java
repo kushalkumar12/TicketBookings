@@ -91,7 +91,7 @@ public class DashBoardDaoImpl implements DashBoardDao{
 		Query query = null;
 		try{
 			location = new ArrayList<String>();
-			 String sqlmax = "SELECT LOCATION_NAME FROM TB_LOCATION ORDER BY LOCATION_NAME ASC";
+			 String sqlmax = "SELECT DISTINCT LOCATION_NAME FROM TB_LOCATION ORDER BY LOCATION_NAME ASC";
 			 query = session.createSQLQuery(sqlmax);
 			 location = query.list();
 		}catch(Exception ex){
@@ -107,7 +107,7 @@ public class DashBoardDaoImpl implements DashBoardDao{
 		Query query = null;
 		try{
 			locations = new ArrayList<String>();
-			 String sqlmax = "SELECT THEATRE_NAME FROM THEATRE WHERE LOCATION_NAME=:loc ORDER BY THEATRE_NAME ASC";
+			 String sqlmax = "SELECT DISTINCT THEATRE_NAME FROM THEATRE WHERE LOCATION_NAME=:loc ORDER BY THEATRE_NAME ASC";
 			 query = session.createSQLQuery(sqlmax);
 			 query.setString("loc", location);
 			 locations = query.list();
@@ -146,7 +146,7 @@ public class DashBoardDaoImpl implements DashBoardDao{
 		Query query = null;
 		try{
 			movies = new ArrayList<String>();
-			 String sqlmax = "SELECT MOVIE_NAME FROM TB_SHOWS ORDER BY SHOW_ID DESC";
+			 String sqlmax = "SELECT DISTINCT MOVIE_NAME FROM TB_SHOWS ORDER BY MOVIE_NAME DESC";
 			 query = session.createSQLQuery(sqlmax);
 			 movies = query.list();
 		}catch(Exception ex){
@@ -162,7 +162,7 @@ public class DashBoardDaoImpl implements DashBoardDao{
 		Query query = null;
 		try{
 			location = new ArrayList<String>();
-			 String sqlmax = "SELECT TL.LOCATION_NAME FROM TB_SHOWS TS, TB_LOCATION TL WHERE TS.LOCATION_NAME = TL.LOCATION_NAME AND TS.MOVIE_NAME =:mvName ORDER BY LOCATION_NAME ASC";
+			 String sqlmax = "SELECT DISTINCT TL.LOCATION_NAME FROM TB_SHOWS TS, TB_LOCATION TL WHERE TS.LOCATION_NAME = TL.LOCATION_NAME AND TS.MOVIE_NAME =:mvName ORDER BY LOCATION_NAME ASC";
 			 query = session.createSQLQuery(sqlmax);
 			 query.setString("mvName", movieName);
 			 location = query.list();

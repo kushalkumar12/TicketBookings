@@ -160,7 +160,7 @@ public class DashBoardServiceManagerImpl implements DashBoardServiceManager{
 			System.out.println("Entered service layer..........session..............&&%%");
 			session = sessionFactory.openSession();
 			dashBoardDao = DaoFactory.getDashBoardDao(session);
-			locList = new ArrayList();
+			locList = new ArrayList<>();
 			locList = dashBoardDao.getMovie();
 			System.out.println("Entered service layer..............loginDao.............&&%%");
 			System.out.println("Entered service layer...............Count.............&&%%");
@@ -187,7 +187,7 @@ public class DashBoardServiceManagerImpl implements DashBoardServiceManager{
 			System.out.println("Entered service layer..........session..............&&%%");
 			session = sessionFactory.openSession();
 			dashBoardDao = DaoFactory.getDashBoardDao(session);
-			locList = new ArrayList();
+			locList = new ArrayList<>();
 			locList = dashBoardDao.getLocation(movieName);
 			System.out.println("Entered service layer..............loginDao.............&&%%");
 			System.out.println("Entered service layer...............Count.............&&%%");

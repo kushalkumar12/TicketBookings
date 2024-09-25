@@ -65,7 +65,7 @@ public class LoginController {
 			loginServiceManager = (LoginServiceManager) ManagerFactory.getManagerInstance("com.serviceImpl.LoginServiceManagerImpl");
 			int count = loginServiceManager.checkUser(userName);
 			System.out.println("Out from service layer");
-			String htmlResponse = String.valueOf(count);
+			String htmlResponse = String.valueOf(	count);
 	        response.setContentType("text/html");
 	        response.getWriter().write(htmlResponse);
 
