@@ -4,6 +4,7 @@ function changeLeftView(val){
 	document.form.action = "changeAdminView.m";
 	document.form.submit();
 }
+//-next 
 
 function logout(){
 	document.form.action = "logout.m";
