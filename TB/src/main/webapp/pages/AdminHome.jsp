@@ -180,6 +180,7 @@ span{
             	<tr><td><h2>1. <a href="#" onclick="changeLeftView('L')">Add Location</a></h2></td></tr>
             	<tr><td><h2>2. <a href="#" onclick="changeLeftView('T')">Add Theatre</a></h2></td></tr>
             	<tr><td><h2>3. <a href="#" onclick="changeLeftView('M')">Add Movie</a></h2></td></tr>
+            	<tr><td><h2>4. <a href="#" onclick="openTemplate()">Template</a></h2></td></tr>
             </table>
             <input type="hidden" id="changeMapper" name="viewValue">
         </section>
