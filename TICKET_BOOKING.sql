@@ -104,3 +104,10 @@ CREATE TABLE BOOKINGS (
 );
 
 -- drop table bookings;
+
+CREATE TABLE billing_templates (
+    id NUMBER PRIMARY KEY, 
+    name VARCHAR2(255) UNIQUE NOT NULL, 
+    template_json CLOB NOT NULL, 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
