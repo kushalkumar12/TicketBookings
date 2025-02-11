@@ -81,6 +81,7 @@ public class AddController {
 			String locationName = request.getParameter("locationName");
 			String movieName = request.getParameter("movieName");
 			String duration = request.getParameter("duration");
+			duration = null != duration && duration.isEmpty() ? duration : "0";
 			int duraMIn = Integer.parseInt(duration);
 			
 			show.setTheatreName(theatreName);
